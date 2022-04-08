@@ -18,13 +18,13 @@ import org.testng.annotations.BeforeSuite;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.markuputils.ExtentColor;
 import com.aventstack.extentreports.markuputils.MarkupHelper;
-import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
-import com.aventstack.extentreports.reporter.configuration.ChartLocation;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import resman.qa.utils.report;
 
-public class baseClass {
+public class baseClass extends report{
 	public static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
 
 	/*
@@ -35,15 +35,12 @@ public class baseClass {
 
 	@BeforeSuite(alwaysRun = true)
 	public void report() throws MalformedURLException {
-		System.out.println("BeforeSuite");
-		htmlReporter = new ExtentHtmlReporter(System.getProperty("user.dir") + "//test-output//RoofHub_Extent.html");
+		sparkReporter = new ExtentSparkReporter(System.getProperty("user.dir") + "//test-output//RoofHub_Extent.html");
 		extent = new ExtentReports();
-		extent.attachReporter(htmlReporter);
+		extent.attachReporter(sparkReporter);
 		extent.setSystemInfo("RoofHUB", "windows");
-		htmlReporter.config().setDocumentTitle("RoofHub_Report");
-		// htmlReporter.config().setReportName("RoofHub_APPIUM");
-		htmlReporter.config().setTestViewChartLocation(ChartLocation.TOP);
-		htmlReporter.config().setTheme(Theme.STANDARD);
+		sparkReporter.config().setDocumentTitle("RoofHub_Report");
+		sparkReporter.config().setTheme(Theme.STANDARD);
 
 	}
 
@@ -57,7 +54,9 @@ public class baseClass {
 
 	/*
 	 * Get WebDriver instance from ThreadLocal
-	 * 
+	 *https://www.extentreports.com/docs/versions/3/java/index.html
+	 *https://www.extentreports.com/docs/versions/5/java/index.html
+	 *https://github.com/extent-framework/extentreports-java/blob/master/src/test/java/com/aventstack/extentreports/reporter/SparkReporterConfigTest.java
 	 * @return
 	 */
 
@@ -108,8 +107,6 @@ public class baseClass {
 		switch (Config.TEST_BROWSER.trim().toUpperCase()) {
 
 		case "FIREFOX":
-			// System.setProperty("webdriver.gecko.driver",
-			// "C://Users//Thinksysuser//eclipse-workspace//RoofHubTest//RoofHubTest//geckodriver.exe");
 			WebDriverManager.firefoxdriver().setup();
 			DesiredCapabilities capabilities = DesiredCapabilities.firefox();
 			capabilities.setCapability("marionette", true);
@@ -117,15 +114,11 @@ public class baseClass {
 			break;
 
 		case "IE":
-			// System.setProperty("webdriver.chrome.driver",
-			// "C://Users//Thinksysuser//eclipse-workspace//RoofHubTest//RoofHubTest//IEDriverServer.exe");
 			WebDriverManager.edgedriver().setup();
 			driver.set(new InternetExplorerDriver());
 			break;
 
 		case "CHROME":
-
-			// System.setProperty("webdriver.chrome.driver","C://Users//Thinksysuser//eclipse-workspace//RoofHubTest//RoofHubTest//chromedriver.exe");
 			WebDriverManager.chromedriver().setup();
 			driver.set(new ChromeDriver());
 			break;

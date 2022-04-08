@@ -26,12 +26,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.seleniumhq.selenium</groupId>
-			<artifactId>selenium-remote-driver</artifactId>
-			<version>3.14.0</version>
-		</dependency>
-
-		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
 			<version>6.11</version>
@@ -80,10 +74,11 @@
 			<artifactId>commons-io</artifactId>
 			<version>2.6</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.aventstack/extentreports -->
 		<dependency>
 			<groupId>com.aventstack</groupId>
 			<artifactId>extentreports</artifactId>
-			<version>3.0.0</version>
+			<version>5.0.9</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
@@ -92,6 +87,8 @@
 			<artifactId>webdrivermanager</artifactId>
 			<version>5.1.0</version>
 		</dependency>
+
+
 	</dependencies>
 
 	<build>
