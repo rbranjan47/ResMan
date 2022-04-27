@@ -35,7 +35,7 @@ public class baseClass extends report{
 
 	@BeforeSuite(alwaysRun = true)
 	public void report() throws MalformedURLException {
-		sparkReporter = new ExtentSparkReporter(System.getProperty("user.dir") + "//test-output//RoofHub_Extent.html");
+		sparkReporter = new ExtentSparkReporter(System.getProperty("user.dir") + "//test-output//ResMan_Automation.html");
 		extent = new ExtentReports();
 		extent.attachReporter(sparkReporter);
 		extent.setSystemInfo("RoofHUB", "windows");
@@ -48,16 +48,11 @@ public class baseClass extends report{
 	public void setup() throws Exception {
 		System.out.println("BeforeMethod");
 		openBrowser();
-		openApplication();
 
 	}
 
 	/*
 	 * Get WebDriver instance from ThreadLocal
-	 *https://www.extentreports.com/docs/versions/3/java/index.html
-	 *https://www.extentreports.com/docs/versions/5/java/index.html
-	 *https://github.com/extent-framework/extentreports-java/blob/master/src/test/java/com/aventstack/extentreports/reporter/SparkReporterConfigTest.java
-	 * @return
 	 */
 
 	public static WebDriver getDriver() {
@@ -130,13 +125,6 @@ public class baseClass extends report{
 		return getDriver();
 	}
 
-	/*
-	 * [TestMethod] [Description("To Open the application")]
-	 */
-	public static void openApplication() {
-		getDriver().get(Config.APPLICATION_URL);
-		System.out.println("Successfully launced the url");
-		getDriver().manage().window().maximize();
-	}
+
 
 }
