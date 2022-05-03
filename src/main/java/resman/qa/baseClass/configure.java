@@ -1,39 +1,41 @@
 package resman.qa.baseClass;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.Properties;
 
 public class configure {
+	public static Properties properties;
 	public static String word;
 	public static String value;
-	public static String TEST_BROWSER=readData("qaConfig", "Browser");
-	public static String APPLICATION_URL=readData("qaConfig","Application_url");
-	
-	public static String Username=readData("qaConfig", "Username");
-	public static String Password=readData("qaConfig", "Password");		
-	
+	public static String filePath = System.getProperty("user.dir") + "//src//main//java//resman//qa//baseClass//resManconfig.properties";
+	public static String TEST_BROWSER = readData(filePath, "Browser");
+	public static String APPLICATION_URL = readData(filePath, "Application_url");
+
+	public static String Username = readData(filePath, "Username");
+	public static String Password = readData(filePath, "Password");
+
 	/*
-	 *  [TestMethod]
-	 *  [Description("To read the configuration file")] 
+	 * [TestMethod] [Description("To read the configuration file")]
 	 */
 
-	public static String readData(String file,String key)
-	{
-		try 
-		{			
-			FileInputStream in=new FileInputStream(""+file+".txt");	 
-			Properties properties=new Properties();			
-			properties.load(in);
-			in.close();
-			
-			FileReader reader=new FileReader(System.getProperty("user.dir")+"//resmanConfig.txt");
+	public static String readData(String file, String key) {
+		try {
+			FileInputStream fileIn = new FileInputStream(file);
+			properties = new Properties();
+			properties.load(fileIn);
+			fileIn.close();
+
+			FileReader reader = new FileReader(file);
 			properties.load(reader);
-			value=properties.getProperty(key);
-		}
-		catch(Exception e)
-		{
-			System.out.println("Configuration file not readable");
+			value = properties.getProperty(key);
+		} catch (FileNotFoundException e) {
+			System.out.println("Config file not locatable");
+
+		} catch (IOException e) {
+			System.out.println("Config file not readable");
 		}
 		return value;
 	}

@@ -1,12 +1,18 @@
 package resman.qa.baseClass;
 
+import java.io.File;
 import java.io.ObjectInputFilter.Config;
 import java.net.MalformedURLException;
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
+import org.bouncycastle.util.Properties;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.firefox.GeckoDriverService;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.ITestResult;
@@ -24,8 +30,10 @@ import com.aventstack.extentreports.reporter.configuration.Theme;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import resman.qa.utils.report;
 
-public class baseClass extends report{
-	public static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
+public class baseClass extends report {
+
+	static ExtentReports extent_report;
+	public static ThreadLocal<Object> driver = new ThreadLocal<>();
 
 	/*
 	 * Sets up browser with base URL for test case execution
@@ -34,19 +42,37 @@ public class baseClass extends report{
 	 */
 
 	@BeforeSuite(alwaysRun = true)
-	public void report() throws MalformedURLException {
-		sparkReporter = new ExtentSparkReporter(System.getProperty("user.dir") + "//test-output//ResMan_Automation.html");
-		extent = new ExtentReports();
-		extent.attachReporter(sparkReporter);
-		extent.setSystemInfo("RoofHUB", "windows");
-		sparkReporter.config().setDocumentTitle("RoofHub_Report");
-		sparkReporter.config().setTheme(Theme.STANDARD);
+	public static ExtentReports report() throws MalformedURLException {
 
+		// Creating Reports
+		String report_path = System.getProperty("user.dir") + "//test-output//ResMan_Automation.html";
+		// project report location, in .html extension
+		ExtentSparkReporter reporter = new ExtentSparkReporter(report_path);
+
+		// report name
+		String reportName = configure.properties.getProperty("reportname");
+		reporter.config().setReportName(reportName);
+
+		// document title
+		String document_title = configure.properties.getProperty("documenttitle");
+		reporter.config().setDocumentTitle(document_title);
+
+		// setting theme
+		reporter.config().setTheme(Theme.DARK);
+
+		// setting format of file
+		reporter.config().setEncoding("utf-8");
+
+		extent_report = new ExtentReports();
+		extent_report.setSystemInfo("ResMan", "windows");
+		extent_report.attachReporter(reporter);
+
+		return extent_report;
 	}
 
 	@BeforeMethod(alwaysRun = true)
 	public void setup() throws Exception {
-		System.out.println("BeforeMethod");
+		System.out.println("Browser Opening...");
 		openBrowser();
 
 	}
@@ -56,56 +82,32 @@ public class baseClass extends report{
 	 */
 
 	public static WebDriver getDriver() {
-		return driver.get();
+		return (WebDriver) driver.get();
 	}
 
 	/*
 	 * Ends WebDriver session
 	 */
 
-	@AfterMethod(alwaysRun = true)
-
-	public void appium_server_stop(ITestResult result) throws Exception {
-
-		System.out.println("AfterMethod");
-
-		if (result.getStatus() == ITestResult.FAILURE) {
-
-			test.fail(MarkupHelper.createLabel(result.getName() + "TestCaseFailed", ExtentColor.RED));
-			test.fail(result.getThrowable());
-			Thread.sleep(4000);
-
-		}
-
-		else if (result.getStatus() == ITestResult.SUCCESS) {
-			test.pass(MarkupHelper.createLabel(result.getName() + "TestCasePasses", ExtentColor.GREEN));
-
-		} else {
-			test.skip(MarkupHelper.createLabel(result.getName() + "TestCaseSkipped", ExtentColor.YELLOW));
-			test.skip(result.getThrowable());
-		}
-
-	}
-
-	@AfterSuite(alwaysRun = true)
-	public void flush() throws Exception {
-
-		System.out.println("After suite");
-		extent.flush();
-
-	}
+	/*
+	 * @AfterSuite(alwaysRun = true) public void flush() throws Exception {
+	 * 
+	 * System.out.println("After suite"); extent.flush();
+	 * 
+	 * }
+	 */
 
 	/*
 	 * [TestMethod] [Description("To setup the browser driver ")]
 	 */
 	public static WebDriver openBrowser() throws Exception {
-		switch (Config.TEST_BROWSER.trim().toUpperCase()) {
+		switch (configure.TEST_BROWSER.trim().toUpperCase()) {
 
 		case "FIREFOX":
 			WebDriverManager.firefoxdriver().setup();
-			DesiredCapabilities capabilities = DesiredCapabilities.firefox();
-			capabilities.setCapability("marionette", true);
-			driver.set(new FirefoxDriver(capabilities));
+			FirefoxOptions firefoxOptions = new FirefoxOptions();
+			firefoxOptions.setAcceptInsecureCerts(true);
+			driver.set(new FirefoxDriver(firefoxOptions));
 			break;
 
 		case "IE":
@@ -115,16 +117,16 @@ public class baseClass extends report{
 
 		case "CHROME":
 			WebDriverManager.chromedriver().setup();
-			driver.set(new ChromeDriver());
+			ChromeOptions chromeOptions = new ChromeOptions();
+			chromeOptions.setAcceptInsecureCerts(true);
+			driver.set(new ChromeDriver(chromeOptions));
 			break;
 
 		default:
 			throw new Exception("Incorrect browser set in config file.");
 		}
-		getDriver().manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+		getDriver().manage().window().maximize();
 		return getDriver();
 	}
-
-
 
 }
