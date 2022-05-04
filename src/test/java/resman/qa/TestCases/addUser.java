@@ -1,5 +1,7 @@
 package resman.qa.TestCases;
 
-public class addUser {
+import resman.qa.baseClass.baseClass;
+
+public class addUser extends baseClass{
 
 }
