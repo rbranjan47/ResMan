@@ -9,5 +9,5 @@ public class resmanaddUser extends baseClass {
 	WebDriver driver = baseClass.getDriver();
 	
 	
-	public static By  = By.xpath("//span[contains(text(),'Assign Leave')]");
+	public static By assignLeaveButton = By.xpath("//span[contains(text(),'Assign Leave')]");
 }

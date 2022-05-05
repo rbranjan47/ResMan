@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2022-05-05T00:27:01 IST" name="Default suite" finished-at="2022-05-05T00:27:57 IST" duration-ms="55674">
+    <groups>
+    </groups>
+    <test started-at="2022-05-05T00:27:01 IST" name="Default test" finished-at="2022-05-05T00:27:57 IST" duration-ms="55674">
+      <class name="resman.qa.TestCases.rough">
+        <test-method is-config="true" signature="report()[pri:0, instance:resman.qa.TestCases.rough@6221a451]" started-at="2022-05-05T00:27:01 IST" name="report" finished-at="2022-05-05T00:27:01 IST" duration-ms="281" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- report -->
+        <test-method is-config="true" signature="setup()[pri:0, instance:resman.qa.TestCases.rough@6221a451]" started-at="2022-05-05T00:27:01 IST" name="setup" finished-at="2022-05-05T00:27:04 IST" duration-ms="2225" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method signature="testMethod()[pri:0, instance:resman.qa.TestCases.rough@6221a451]" started-at="2022-05-05T00:27:04 IST" name="testMethod" finished-at="2022-05-05T00:27:57 IST" duration-ms="53412" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testMethod -->
+      </class> <!-- resman.qa.TestCases.rough -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>

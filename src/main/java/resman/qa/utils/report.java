@@ -203,16 +203,6 @@ public class report {
 	}
 
 	/*
-	 * [TestMethod] [Description("logger for failure exception in catch block")]
-	 */
-
-	public static ExtentTest Logger_ExceptionError(ExtentTest Node_Type, Exception e) {
-		Node_Type.log(Status.ERROR, "Exception Error " + e);
-		return Node_Type;
-
-	}
-
-	/*
 	 * [TestMethod] [Description("logger validation")]
 	 */
 
