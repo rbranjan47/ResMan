@@ -8,6 +8,7 @@ import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
 public class report {
+	
 	public ExtentSparkReporter sparkReporter;
 	public static ExtentReports extent;
 	public static ExtentTest test;
@@ -231,5 +232,5 @@ public class report {
 
 		return Node_Type;
 
-	}
+	} 
 }

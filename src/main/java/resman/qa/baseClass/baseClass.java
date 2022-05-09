@@ -1,29 +1,16 @@
 package resman.qa.baseClass;
 
-import java.io.File;
-import java.io.ObjectInputFilter.Config;
-import java.net.MalformedURLException;
-import java.time.Duration;
-import java.util.concurrent.TimeUnit;
-
-import org.bouncycastle.util.Properties;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.firefox.GeckoDriverService;
 import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 
 import com.aventstack.extentreports.ExtentReports;
-import com.aventstack.extentreports.markuputils.ExtentColor;
-import com.aventstack.extentreports.markuputils.MarkupHelper;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 
@@ -35,38 +22,36 @@ public class baseClass extends report {
 	static ExtentReports extent_report;
 	public static ThreadLocal<Object> driver = new ThreadLocal<>();
 
-	/*
-	 * Sets up browser with base URL for test case execution
-	 * 
-	 * @throws IOException
-	 */
-
 	@BeforeSuite(alwaysRun = true)
-	public static ExtentReports report() throws MalformedURLException {
+	public static ExtentReports report() {
+		try {
+			// Creating Reports
+			String report_path = System.getProperty("user.dir") + "\\test-output\\ResMan_Automation.html";
 
-		// Creating Reports
-		String report_path = System.getProperty("user.dir") + "//test-output//ResMan_Automation.html";
-		// project report location, in .html extension
-		ExtentSparkReporter reporter = new ExtentSparkReporter(report_path);
+			// project report location, in HTML extension
+			ExtentSparkReporter reporter = new ExtentSparkReporter(report_path);
 
-		// report name
-		String reportName = configure.properties.getProperty("reportname");
-		reporter.config().setReportName(reportName);
+			// report name
+			String reportName = configure.properties.getProperty("reportname");
+			reporter.config().setReportName(reportName);
 
-		// document title
-		String document_title = configure.properties.getProperty("documenttitle");
-		reporter.config().setDocumentTitle(document_title);
+			// document title
+			String document_title = configure.properties.getProperty("documenttitle");
+			reporter.config().setDocumentTitle(document_title);
 
-		// setting theme
-		reporter.config().setTheme(Theme.DARK);
+			// setting theme
+			reporter.config().setTheme(Theme.DARK);
 
-		// setting format of file
-		reporter.config().setEncoding("utf-8");
+			// setting format of file
+			reporter.config().setEncoding("utf-8");
 
-		extent_report = new ExtentReports();
-		extent_report.setSystemInfo("ResMan", "windows");
-		extent_report.attachReporter(reporter);
+			extent_report = new ExtentReports();
+			extent_report.attachReporter(reporter);
+			extent_report.setSystemInfo("ResMan", "windows");
 
+		} catch (Exception e) {
+			System.out.println("Extent Report Not Generated:");
+		}
 		return extent_report;
 	}
 
@@ -74,32 +59,18 @@ public class baseClass extends report {
 	public void setup() throws Exception {
 		System.out.println("Browser Opening...");
 		openBrowser();
-
+		openApplication();
 	}
 
-	/*
-	 * Get WebDriver instance from ThreadLocal
-	 */
+	@AfterSuite(alwaysRun = true)
+	public void closeup() {
+		closeApplication();
+	}
 
 	public static WebDriver getDriver() {
 		return (WebDriver) driver.get();
 	}
 
-	/*
-	 * Ends WebDriver session
-	 */
-
-	/*
-	 * @AfterSuite(alwaysRun = true) public void flush() throws Exception {
-	 * 
-	 * System.out.println("After suite"); extent.flush();
-	 * 
-	 * }
-	 */
-
-	/*
-	 * [TestMethod] [Description("To setup the browser driver ")]
-	 */
 	public static WebDriver openBrowser() throws Exception {
 		switch (configure.TEST_BROWSER.trim().toUpperCase()) {
 
@@ -129,4 +100,16 @@ public class baseClass extends report {
 		return getDriver();
 	}
 
+	public static void openApplication() throws InterruptedException {
+		getDriver().get(configure.APPLICATION_URL);
+		System.out.println("Successfully launced the ResMan Url");
+		getDriver().manage().window().maximize();
+		Thread.sleep(10000);
+	}
+
+	public static void closeApplication() {
+		getDriver().manage().deleteAllCookies();
+		getDriver().close();
+		getDriver().quit();
+	}
 }
