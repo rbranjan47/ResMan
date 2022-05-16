@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
@@ -20,7 +19,6 @@ public class rough extends baseClass{
 	@Test
 	public void testMethod() throws InterruptedException {
 		WebDriverManager.chromedriver().setup();
-		WebDriver driver = baseClass.getDriver();
 		driver.get("https://qa.myresman.com/");
 		driver.findElement(By.id("Username")).sendKeys("avadmin");
 		driver.findElement(By.id("Password")).sendKeys("tester");
@@ -81,7 +79,7 @@ public class rough extends baseClass{
 		devtool.addListener(Log.entryAdded(), entries->{
 			consoleText = entries.getText();
 			consoleLevel = entries.getLevel(); */
-		ChromeDriver driver = (ChromeDriver) baseClass.getDriver();
+		ChromeDriver driver = new ChromeDriver();
 		LogEntries entry = driver.manage().logs().get(LogType.BROWSER);
 		
 		List<org.openqa.selenium.logging.LogEntry>logs = entry.getAll();

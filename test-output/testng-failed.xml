@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="Failed suite [Report_Suite]" guice-stage="DEVELOPMENT">
-  <listeners>
-    <listener class-name="resman.qa.TestCases.Listeners"/>
-  </listeners>
-  <test thread-count="5" name="Test(failed)">
+<suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
+  <test thread-count="5" name="Default test(failed)">
     <classes>
       <class name="resman.qa.TestCases.addUser">
         <methods>
           <include name="report"/>
           <include name="setup"/>
-          <include name="closeup"/>
-          <include name="VerifyAddUser"/>
+          <include name="verifyAddUser"/>
+          <include name="closeUp"/>
         </methods>
       </class> <!-- resman.qa.TestCases.addUser -->
     </classes>
-  </test> <!-- Test(failed) -->
-</suite> <!-- Failed suite [Report_Suite] -->
+  </test> <!-- Default test(failed) -->
+</suite> <!-- Failed suite [Default suite] -->

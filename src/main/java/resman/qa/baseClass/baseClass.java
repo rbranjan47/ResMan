@@ -1,16 +1,18 @@
 package resman.qa.baseClass;
 
+import org.apache.log4j.PropertyConfigurator;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.testng.annotations.AfterSuite;
+import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 
 import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 
@@ -19,12 +21,17 @@ import resman.qa.utils.report;
 
 public class baseClass extends report {
 
-	static ExtentReports extent_report;
-	public static ThreadLocal<Object> driver = new ThreadLocal<>();
+	public static WebDriver driver = null;
+	public static ExtentReports extent_report;
+	public static ExtentTest test;
 
-	@BeforeSuite(alwaysRun = true)
+	@BeforeSuite
 	public static ExtentReports report() {
 		try {
+
+			String log4jConfPath = System.getProperty("user.dir") + "\\src\\main\\java\\resource\\log4j.properties";
+			PropertyConfigurator.configure(log4jConfPath);
+
 			// Creating Reports
 			String report_path = System.getProperty("user.dir") + "\\test-output\\ResMan_Automation.html";
 
@@ -55,20 +62,11 @@ public class baseClass extends report {
 		return extent_report;
 	}
 
-	@BeforeMethod(alwaysRun = true)
+	@BeforeMethod
 	public void setup() throws Exception {
 		System.out.println("Browser Opening...");
 		openBrowser();
 		openApplication();
-	}
-
-	@AfterSuite(alwaysRun = true)
-	public void closeup() {
-		closeApplication();
-	}
-
-	public static WebDriver getDriver() {
-		return (WebDriver) driver.get();
 	}
 
 	public static WebDriver openBrowser() throws Exception {
@@ -78,38 +76,32 @@ public class baseClass extends report {
 			WebDriverManager.firefoxdriver().setup();
 			FirefoxOptions firefoxOptions = new FirefoxOptions();
 			firefoxOptions.setAcceptInsecureCerts(true);
-			driver.set(new FirefoxDriver(firefoxOptions));
+			driver = new FirefoxDriver(firefoxOptions);
 			break;
 
 		case "IE":
 			WebDriverManager.edgedriver().setup();
-			driver.set(new InternetExplorerDriver());
+			InternetExplorerOptions edgeOptions = new InternetExplorerOptions();
+			edgeOptions.setAcceptInsecureCerts(true);
+			driver = new InternetExplorerDriver(edgeOptions);
 			break;
 
 		case "CHROME":
 			WebDriverManager.chromedriver().setup();
 			ChromeOptions chromeOptions = new ChromeOptions();
 			chromeOptions.setAcceptInsecureCerts(true);
-			driver.set(new ChromeDriver(chromeOptions));
+			driver = new ChromeDriver(chromeOptions);
 			break;
 
 		default:
 			throw new Exception("Incorrect browser set in config file.");
 		}
-		getDriver().manage().window().maximize();
-		return getDriver();
+		return driver;
 	}
 
 	public static void openApplication() throws InterruptedException {
-		getDriver().get(configure.APPLICATION_URL);
+		driver.get(configure.APPLICATION_URL);
 		System.out.println("Successfully launced the ResMan Url");
-		getDriver().manage().window().maximize();
-		Thread.sleep(10000);
-	}
-
-	public static void closeApplication() {
-		getDriver().manage().deleteAllCookies();
-		getDriver().close();
-		getDriver().quit();
+		driver.manage().window().maximize();
 	}
 }

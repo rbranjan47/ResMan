@@ -6,16 +6,20 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
 
+
 public class configure {
 	public static Properties properties;
 	public static String word;
 	public static String value;
 	public static String filePath = System.getProperty("user.dir") + "//src//main//java//resman//qa//baseClass//resManconfig.properties";
+	
 	public static String TEST_BROWSER = readData(filePath, "Browser");
 	public static String APPLICATION_URL = readData(filePath, "Application_url");
+	public static String property = readData(filePath, "property");
 
 	public static String Username = readData(filePath, "Username");
 	public static String Password = readData(filePath, "Password");
+	public static String user = readData(filePath, "user");
 
 	/*
 	 * [TestMethod] [Description("To read the configuration file")]

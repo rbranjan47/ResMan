@@ -1,14 +1,12 @@
 package resman.pageData;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
 import resman.qa.baseClass.baseClass;
 
 public class loginPage extends baseClass {
-	WebDriver driver = baseClass.getDriver();
 
 	//WebElements 
 	public static By userName = By.id("Username");
@@ -17,19 +15,19 @@ public class loginPage extends baseClass {
 
 	// initializing element
 	public loginPage() {
-		PageFactory.initElements(getDriver(), this);
+		PageFactory.initElements(driver, this);
 	}
 
 	// actions
-	public WebElement usernameInput() {
+	public static WebElement usernameInput() {
 		return driver.findElement(userName);
 	}
 
-	public WebElement passwordInput() {
+	public static WebElement passwordInput() {
 		return driver.findElement(passWord);
 	}
 
-	public WebElement loginButtonClick() {
+	public static WebElement loginButtonClick() {
 		return driver.findElement(loginBtn);
 	}
 

@@ -30,15 +30,13 @@ import com.aventstack.extentreports.markuputils.Markup;
 import com.aventstack.extentreports.markuputils.MarkupHelper;
 
 import resman.qa.baseClass.baseClass;
-import resman.qa.resources.reTryAnalyzer;
 import resman.qa.utils.resManAPI;
 import resman.qa.utils.utilities;
 
 public class Listeners extends baseClass implements ITestListener, IAnnotationTransformer, IReporter {
-	WebDriver driver = baseClass.getDriver();
-	utilities utils = new utilities();;
+
+	utilities utils = new utilities();
 	resManAPI consoleLogs;
-	ExtentTest test;
 	Markup markup;
 
 	// calling the extent reports method
@@ -49,25 +47,32 @@ public class Listeners extends baseClass implements ITestListener, IAnnotationTr
 	// IT WILL EXECUTE ON TEST START
 	@Override
 	public void onTestStart(ITestResult result) {
-
+		// extent
 		test = extent_report.createTest(result.getTestClass().getName() + "->" + result.getMethod().getMethodName());
 		extentTest.set(test);
+		// log4j
+		Logs.infoMethod(result.getMethod().getMethodName() + " has passed");
 	}
 
 	// IT WILL ON TEST SUCCESS
 	@Override
 	public void onTestSuccess(ITestResult result) {
+		// extent report
 		String testcaseMethod_Name = result.getMethod().getMethodName();
 		String log_text = "<b> Test Case " + testcaseMethod_Name + "  has passed!</b>";
 
 		markup = MarkupHelper.createLabel(log_text, ExtentColor.GREEN);
 		extentTest.get().log(Status.PASS, markup);
+
+		// log4j
+		Logs.infoMethod(testcaseMethod_Name + " has passed");
+		Logs.infoMethod(result.getMethod().getDescription());
 	}
 
 	// IT WILL EXECUTE TEST FAILURE
 	@Override
 	public void onTestFailure(ITestResult result) {
-		WebDriver driver = null;
+		// WebDriver driver = null;
 		String throwable_message = Arrays.deepToString(result.getThrowable().getStackTrace());
 		extentTest.get().fail("<details><summary><b><font color='red'>" + "Exception Occured!" + "</font></b></summary>"
 				+ throwable_message.replaceAll(",", "<br>") + "</details> \n");
@@ -81,15 +86,14 @@ public class Listeners extends baseClass implements ITestListener, IAnnotationTr
 		extentTest.get().log(Status.FAIL, markup);
 
 		try {
-			driver = (WebDriver) result.getTestClass().getRealClass().getDeclaredField("driver")
-					.get(result.getInstance());
+			driver = (WebDriver) result.getTestClass().getRealClass().getField("driver").get(result.getInstance());
 		} catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e1) {
 
 			e1.printStackTrace();
 		}
 		try {
-			// extentTest.get().addScreenCaptureFromPath(utils.takescreenshot_driver(testcaseMethod_Name,
-			// driver), testcaseMethod_Name);
+			// extentTest.get().addScreenCaptureFromPath(utils.takescreenshot_driver(testcaseMethod_Name,driver),
+			// testcaseMethod_Name);
 			extentTest.get().fail("", MediaEntityBuilder
 					.createScreenCaptureFromBase64String("data:image/png;base64," + utils.screenShot(driver)).build());
 		} catch (Exception e) {
@@ -97,6 +101,9 @@ public class Listeners extends baseClass implements ITestListener, IAnnotationTr
 			System.out.println(e.getCause());
 			e.printStackTrace();
 		}
+
+		// log4j
+		Logs.fatalMethod("Failed, Exception: " + throwable_message);
 	}
 
 	@Override
@@ -107,10 +114,16 @@ public class Listeners extends baseClass implements ITestListener, IAnnotationTr
 		markup = MarkupHelper.createLabel(log_text, ExtentColor.YELLOW);
 		extentTest.get().log(Status.SKIP, markup);
 
+		try {
+			driver = (WebDriver) result.getTestClass().getRealClass().getField("driver").get(result.getInstance());
+		} catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e1) {
+
+			e1.printStackTrace();
+		}
 		// taking screenshot
 		try {
-			// extentTest.get().addScreenCaptureFromPath(utils.takescreenshot_driver(testcaseMethod_Name,
-			// driver), testcaseMethod_Name);
+			// extentTest.get().addScreenCaptureFromPath(utils.takescreenshot_driver(testcaseMethod_Name,driver),
+			// testcaseMethod_Name);
 			extentTest.get().fail("", MediaEntityBuilder
 					.createScreenCaptureFromBase64String("data:image/png;base64," + utils.screenShot(driver)).build());
 		} catch (Exception e) {
@@ -128,13 +141,15 @@ public class Listeners extends baseClass implements ITestListener, IAnnotationTr
 
 	@Override
 	public void onStart(ITestContext context) {
-
+		Logs.infoMethod("============Started:" + context.getName() + "============");
 	}
 
 	@Override
 	public void onFinish(ITestContext context) {
 		// to notify extent, reporting is completed
 		extent_report.flush();
+		// log4j
+		Logs.infoMethod("============Finished:" + context.getName() + "============");
 	}
 
 	// re-try analyzer
@@ -159,10 +174,10 @@ public class Listeners extends baseClass implements ITestListener, IAnnotationTr
 		}
 
 		Collection<ISuiteResult> suiteResults = testByGroups.values();
-		
+
 		ISuiteResult suiteResult = suiteResults.iterator().next();
 		ITestContext testContext = suiteResult.getTestContext();
-		Collection<ITestNGMethod> perfMethods = methodByGroups.get("smoke");
+		Collection<ITestNGMethod> perfMethods = methodByGroups.get("regression");
 		IResultMap failedTests = testContext.getFailedTests();
 		for (ITestNGMethod perfMethod : perfMethods) {
 			Set<ITestResult> testResultSet = failedTests.getResults(perfMethod);

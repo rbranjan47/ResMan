@@ -33,7 +33,7 @@ public class resManAPI extends baseClass {
 		});
 		String consoleLevelStr = consoleLevel +"";
 		return "Logs: " + consoleLevel + "\r\n" + "Levels: " + consoleLevelStr;  */
-		ChromeDriver driver = (ChromeDriver) baseClass.getDriver();
+		driver = (ChromeDriver) driver;
 		LogEntries entry = driver.manage().logs().get(LogType.BROWSER);
 		
 		List<org.openqa.selenium.logging.LogEntry>logs = entry.getAll();
