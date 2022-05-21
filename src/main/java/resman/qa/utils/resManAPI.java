@@ -12,10 +12,10 @@ import org.openqa.selenium.logging.LogType;
 import resman.qa.baseClass.baseClass;
 
 public class resManAPI extends baseClass {
-	String consoleText ;
-	Level consoleLevel;
+	public static String consoleText ;
+	public static Level consoleLevel;
 	
-	public String fetchAPI() {
+	public static String fetchAPI() {
 		/*
 		DevTools devtool; 
 		
@@ -33,6 +33,7 @@ public class resManAPI extends baseClass {
 		});
 		String consoleLevelStr = consoleLevel +"";
 		return "Logs: " + consoleLevel + "\r\n" + "Levels: " + consoleLevelStr;  */
+		
 		driver = (ChromeDriver) driver;
 		LogEntries entry = driver.manage().logs().get(LogType.BROWSER);
 		

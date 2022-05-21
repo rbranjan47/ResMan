@@ -78,9 +78,12 @@ public class Listeners extends baseClass implements ITestListener, IAnnotationTr
 				+ throwable_message.replaceAll(",", "<br>") + "</details> \n");
 		// extentTest.get().fail(consoleLogs.)
 
+		//Console messages
+		String consoleMessages = resManAPI.fetchAPI();
+				
 		String testcaseMethod_Name = result.getMethod().getMethodName();
 		// log fail test
-		String log_text = "<b> Test Case " + testcaseMethod_Name + "  has faild</b>";
+		String log_text = "<b> Test Case " + testcaseMethod_Name + "  has failed</b>";
 
 		markup = MarkupHelper.createLabel(log_text, ExtentColor.RED);
 		extentTest.get().log(Status.FAIL, markup);
@@ -104,6 +107,7 @@ public class Listeners extends baseClass implements ITestListener, IAnnotationTr
 
 		// log4j
 		Logs.fatalMethod("Failed, Exception: " + throwable_message);
+		Logs.fatalMethod("Console: "+consoleMessages);
 	}
 
 	@Override

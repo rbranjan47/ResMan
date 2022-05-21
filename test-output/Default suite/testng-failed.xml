@@ -3,14 +3,14 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="resman.qa.TestCases.addUser">
+      <class name="resman.qa.TestCases.removeUser">
         <methods>
           <include name="report"/>
           <include name="setup"/>
-          <include name="verifyAddUser"/>
+          <include name="navigateToUserPage"/>
           <include name="closeUp"/>
         </methods>
-      </class> <!-- resman.qa.TestCases.addUser -->
+      </class> <!-- resman.qa.TestCases.removeUser -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

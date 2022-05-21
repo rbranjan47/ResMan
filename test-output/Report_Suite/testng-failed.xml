@@ -10,8 +10,7 @@
         <methods>
           <include name="report"/>
           <include name="setup"/>
-          <include name="SetUP"/>
-          <include name="VerifyAddUser"/>
+          <include name="verifyAddUser"/>
           <include name="closeUp"/>
         </methods>
       </class> <!-- resman.qa.TestCases.addUser -->

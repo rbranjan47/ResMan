@@ -6,10 +6,9 @@
 		<listener class-name="resman.qa.TestCases.Listeners"></listener>
 	</listeners>
 	<test thread-count="5" name="Test">
-	<classes>
-   <!--  <class name="com.roofhub.qa.TestCases.LoginPageTest"/> --> 
-      <class name="resman.qa.TestCases.addUser"/>
-         <class name="resman.qa.TestCases.removeUser"/>
-      </classes>
+		<classes>
+			<!-- <class name="com.roofhub.qa.TestCases.LoginPageTest"/> -->
+			<class name="resman.qa.TestCases.addUser" />
+		</classes>
 	</test> <!-- Test -->
 </suite> <!-- Suite -->

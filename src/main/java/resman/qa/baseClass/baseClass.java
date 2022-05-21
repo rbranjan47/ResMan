@@ -100,7 +100,7 @@ public class baseClass extends report {
 	}
 
 	public static void openApplication() throws InterruptedException {
-		driver.get(configure.APPLICATION_URL);
+		driver.get("https://"+configure.APPLICATION_URL+".myresman.com/");
 		System.out.println("Successfully launced the ResMan Url");
 		driver.manage().window().maximize();
 	}

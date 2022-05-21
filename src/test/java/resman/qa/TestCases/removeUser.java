@@ -1,6 +1,6 @@
 package resman.qa.TestCases;
 
-import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 import java.util.List;
 
@@ -8,6 +8,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.Test;
+
+import com.aventstack.extentreports.Status;
 
 import resman.pageData.loginPage;
 import resman.pageData.resmanremoveAddedUser;
@@ -19,17 +21,49 @@ public class removeUser extends baseClass {
 	utilities utilss;
 	loginPage login;
 
-	// Constructor to Use Base_class constructor
-	public removeUser() {
-		super(); // it will call super class constructor
-
-	}
 
 	@Test(groups = "regression")
-	public static void navigateToUserPage() throws InterruptedException {
+	public static void VerifyRemoveUser() throws InterruptedException {
 		addUser.VerifyUsersPage();
-		addUser.verifyAddedUser();
-		removeAddedUser();
+		Thread.sleep(5000);
+
+		try {
+			assertTrue(addUser.verifyAddedUser());
+			Thread.sleep(5000);
+			test.log(Status.PASS, "user " + configure.user + " is added for access!");
+		} catch (Exception e) {
+			test.log(Status.FAIL, "user " + configure.user + " not found in access lists...");
+			test.log(Status.FAIL, e.getMessage());
+		}
+
+		try {
+			assertTrue(removeAddedUser());
+			Thread.sleep(5000);
+			test.log(Status.PASS, "user " + configure.user + " is removed from access!");
+		} catch (Exception e) {
+			test.log(Status.FAIL, "user " + configure.user + " not removed from access lists...");
+			test.log(Status.FAIL, e.getMessage());
+		}
+
+		resmanremoveAddedUser.removeBtn().click();
+		Thread.sleep(2000);
+
+		try {
+			resmanremoveAddedUser.removeYesbtn().click();
+			Thread.sleep(5000);
+			test.log(Status.PASS, "Clicked on Remove button!");
+		} catch (Exception e) {
+			test.log(Status.FAIL, "Not Clicked on Remove Button!");
+			test.log(Status.FAIL, e.getMessage());
+		}
+
+		try {
+			assertTrue(checkRemovedUser());
+			test.log(Status.PASS, "user " + configure.user + " is removed from successfully!");
+		}catch(Exception e) {
+			test.log(Status.FAIL, "user " + configure.user + " not removed Yet...");
+			test.log(Status.FAIL, e.getMessage());
+		}
 	}
 
 	@AfterTest
@@ -39,40 +73,34 @@ public class removeUser extends baseClass {
 		driver.quit();
 	}
 
-	public static void removeAddedUser() throws InterruptedException {
-		// verify remove user
-		List<WebElement> userslists = driver.findElements(By.xpath("//table[@id='PropertyUsersTable']/tbody/tr"));
-		for (int i = 0; i < userslists.size(); i++) {
-			try {
-				String userSelectedLast = configure.user;
-				String userneedRemove = userslists.get(i).getText();
-				if (userneedRemove.contains(userSelectedLast)) {
-					userslists.get(i).click();
+	//string Regex
+	public static boolean removeAddedUser() {
+		// verify remove user   
+		String removeUserName = configure.user;
+		List<WebElement> usersrowlists = driver.findElements(By.xpath("//table[@id='PropertyUsersTable']/tbody/tr"));
+		int userRowSize = usersrowlists.size();
+		
+		List<WebElement> usercolumnlists = driver.findElements(By.xpath("//*[@id='PropertyUsersTable']/tbody/tr[1]/td"));
+		int userColumnSize = usercolumnlists.size();
+		
+		for (int i=1; i<=userRowSize ;i++) {
+				if(driver.findElement(By.xpath("//*[@id='PropertyUsersTable']/tbody/tr["+i+"]/td[1]")).getText().equalsIgnoreCase(removeUserName)) {
+					driver.findElement(By.xpath("//*[@id='PropertyUsersTable']/tbody/tr["+i+"]/td["+userColumnSize+"]")).click();
+					return true;
 				}
-			} catch (Exception e) {
-				System.out.println(e.getMessage());
-			}
 		}
-		resmanremoveAddedUser.removeBtn().click();
-		Thread.sleep(5000);
-		resmanremoveAddedUser.removeYesbtn().click();
-		Thread.sleep(5000);
+		return false;
 	}
 
-	public static void checkRemovedUser() throws InterruptedException{
-		//checking user lists to verify removed user
-		List<WebElement> userslists = driver.findElements(By.xpath("//table[@id='PropertyUsersTable']/tbody/tr"));
-		for (int i = 0; i < userslists.size(); i++) {
-			try {
-				String userSelectedLast = configure.user;
-				String userneedRemove = userslists.get(i).getText();
-				while(true) {
-					if (userneedRemove.contains(userSelectedLast))
-				}
-			}
-			catch(Exception e) {
-				
+	public static boolean checkRemovedUser() {
+		// checking user lists to verify removed user   
+		List<WebElement> userslists = driver.findElements(By.className("put-name-col"));
+		for (int i = 0; i <userslists.size(); i++) {
+			String removedUser = configure.user;
+			if (userslists.get(i).getText().equalsIgnoreCase(removedUser)) {
+				return false;
 			}
 		}
+		return true;
 	}
 }

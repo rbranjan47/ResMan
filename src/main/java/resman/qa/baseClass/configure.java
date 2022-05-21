@@ -20,7 +20,10 @@ public class configure {
 	public static String Username = readData(filePath, "Username");
 	public static String Password = readData(filePath, "Password");
 	public static String user = readData(filePath, "user");
-
+	public static String HomeURL = readData(filePath, "HomeUrl");
+	public static String PropertiesURL = readData(filePath, "PropertiesPageUrl");
+	public static String sleepTimes = readData(filePath, "sleeptime");
+	
 	/*
 	 * [TestMethod] [Description("To read the configuration file")]
 	 */

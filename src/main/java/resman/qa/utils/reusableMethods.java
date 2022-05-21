@@ -12,13 +12,14 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import resman.qa.baseClass.baseClass;
+import resman.qa.baseClass.configure;
 
 public class reusableMethods extends baseClass {
 
 	// implicit wait
 	public static void implicitWait(int time) {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
-	}
+		}
 
 	// Explicit wait
 	public static void explicitWait(WebElement element) {
@@ -26,6 +27,13 @@ public class reusableMethods extends baseClass {
 		wait.until(ExpectedConditions.visibilityOf(element));
 	}
 
+	//thread sleep
+	public static void threadSleep() throws InterruptedException {
+		String sleepTime = configure.sleepTimes;
+		 int sleepTimeInt = Integer.parseInt(sleepTime);
+		Thread.sleep(sleepTimeInt);
+	}
+	
 	// Java-script click
 	public static void jsClick(WebElement element) {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
