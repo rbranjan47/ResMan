@@ -35,10 +35,11 @@ import resman.qa.utils.utilities;
 
 public class Listeners extends baseClass implements ITestListener, IAnnotationTransformer, IReporter {
 
+public WebDriver driver;
+	
+	
 	utilities utils = new utilities();
-	resManAPI consoleLogs;
 	Markup markup;
-
 	// calling the extent reports method
 	ExtentReports extent_report = baseClass.report();
 
@@ -48,7 +49,7 @@ public class Listeners extends baseClass implements ITestListener, IAnnotationTr
 	@Override
 	public void onTestStart(ITestResult result) {
 		// extent
-		test = extent_report.createTest(result.getTestClass().getName() + "->" + result.getMethod().getMethodName());
+		test = extent_report.createTest(/*result.getTestClass().getName() + "->" +*/ result.getMethod().getMethodName());
 		extentTest.set(test);
 		// log4j
 		Logs.infoMethod(result.getMethod().getMethodName() + " has passed");
@@ -73,14 +74,18 @@ public class Listeners extends baseClass implements ITestListener, IAnnotationTr
 	@Override
 	public void onTestFailure(ITestResult result) {
 		// WebDriver driver = null;
-		String throwable_message = Arrays.deepToString(result.getThrowable().getStackTrace());
-		extentTest.get().fail("<details><summary><b><font color='red'>" + "Exception Occured!" + "</font></b></summary>"
-				+ throwable_message.replaceAll(",", "<br>") + "</details> \n");
-		// extentTest.get().fail(consoleLogs.)
-
 		//Console messages
-		String consoleMessages = resManAPI.fetchAPI();
+	     String consoleMessages = resManAPI.fetchAPI();
 				
+		//Not array.to As arrays.deepToString works on non-homogenous data types
+		String throwable_message = Arrays.deepToString(result.getThrowable().getStackTrace());
+		
+		
+		extentTest.get().fail("<button type=\"Button\"><b><font color='red'>" + "Exception Ocuured!" + 
+				"</font></b></button>" + "<div overflow:hidden><p>"+throwable_message.replaceAll(",", "<br>") + "</p></div>");
+		
+		//extentTest.get().fail(consoleMessages);
+
 		String testcaseMethod_Name = result.getMethod().getMethodName();
 		// log fail test
 		String log_text = "<b> Test Case " + testcaseMethod_Name + "  has failed</b>";

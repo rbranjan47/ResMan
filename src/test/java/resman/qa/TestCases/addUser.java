@@ -7,6 +7,7 @@ import static org.testng.Assert.assertTrue;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.Test;
@@ -20,14 +21,14 @@ import resman.qa.baseClass.configure;
 import resman.qa.utils.reusableMethods;
 import resman.qa.utils.utilities;
 
-public class addUser extends baseClass {
+public  class addUser extends baseClass {
 
 	utilities utilss;
-	loginPage login;
+	loginPage login = new loginPage();
 
 
 	@Test(groups = "regression")
-	public static void verifyAddUser() throws InterruptedException {
+	public  void verifyAddUser() throws Exception {
 		VerifyUsersPage();
 		try {
 			resmanaddUser.addBtn().click();
@@ -37,7 +38,7 @@ public class addUser extends baseClass {
 			test.log(Status.FAIL, "Not clicked Add button...");
 			test.log(Status.FAIL, e.getMessage());
 		}
-		/*
+		
 		try {
 			assertTrue(verifyAddUserLists());
 			Thread.sleep(5000);
@@ -137,7 +138,7 @@ public class addUser extends baseClass {
 		}
 	}
 
-	public static boolean verifyAddedUser() {
+	public  static boolean verifyAddedUser() {
 		// verify added user
 		List<WebElement> userAdded = driver.findElements(By.className("put-name-col"));
 		for (int i = 0; i < userAdded.size(); i++) {

@@ -1,104 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="1" passed="0" failed="1" skipped="0">
+<testng-results ignored="1" total="3" passed="2" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2022-05-21T19:18:45 IST" name="Report_Suite" finished-at="2022-05-21T19:19:05 IST" duration-ms="19402">
+  <suite started-at="2022-06-01T14:26:17 IST" name="Report_Suite" finished-at="2022-06-01T14:29:15 IST" duration-ms="178665">
     <groups>
       <group name="regression">
-        <method signature="addUser.verifyAddUser()[pri:0, instance:resman.qa.TestCases.addUser@6d1ef78d]" name="verifyAddUser" class="resman.qa.TestCases.addUser"/>
+        <method signature="addUser.verifyAddUser()[pri:0, instance:resman.qa.TestCases.addUser@2df6226d]" name="verifyAddUser" class="resman.qa.TestCases.addUser"/>
+        <method signature="removeUser.VerifyRemoveUser()[pri:0, instance:resman.qa.TestCases.removeUser@5f0e9815]" name="VerifyRemoveUser" class="resman.qa.TestCases.removeUser"/>
       </group> <!-- regression -->
     </groups>
-    <test started-at="2022-05-21T19:18:45 IST" name="Test" finished-at="2022-05-21T19:19:05 IST" duration-ms="19402">
+    <test started-at="2022-06-01T14:26:17 IST" name="Test" finished-at="2022-06-01T14:29:15 IST" duration-ms="178665">
       <class name="resman.qa.TestCases.addUser">
-        <test-method is-config="true" signature="report()[pri:0, instance:resman.qa.TestCases.addUser@6d1ef78d]" started-at="2022-05-21T19:18:45 IST" name="report" finished-at="2022-05-21T19:18:45 IST" duration-ms="10" status="PASS">
+        <test-method is-config="true" signature="report()[pri:0, instance:resman.qa.TestCases.addUser@2df6226d]" started-at="2022-06-01T14:26:17 IST" name="report" finished-at="2022-06-01T14:26:17 IST" duration-ms="11" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- report -->
-        <test-method is-config="true" signature="setup()[pri:0, instance:resman.qa.TestCases.addUser@6d1ef78d]" started-at="2022-05-21T19:18:45 IST" name="setup" finished-at="2022-05-21T19:18:53 IST" duration-ms="7285" status="PASS">
+        <test-method is-config="true" signature="setup()[pri:0, instance:resman.qa.TestCases.addUser@2df6226d]" started-at="2022-06-01T14:26:17 IST" name="setup" finished-at="2022-06-01T14:26:24 IST" duration-ms="7611" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method signature="verifyAddUser()[pri:0, instance:resman.qa.TestCases.addUser@6d1ef78d]" started-at="2022-05-21T19:18:53 IST" name="verifyAddUser" finished-at="2022-05-21T19:18:59 IST" duration-ms="6353" status="FAIL">
-          <exception class="org.openqa.selenium.NoSuchElementException">
-            <message>
-              <![CDATA[no such element: Unable to locate element: {"method":"css selector","selector":"#CloseAdvisor"}
-  (Session info: chrome=101.0.4951.67)
-For documentation on this error, please visit: https://selenium.dev/exceptions/#no_such_element
-Build info: version: '4.1.4', revision: '535d840ee2'
-System info: host: 'LAPTOP-HSQD46T4', ip: '192.168.1.197', os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.2'
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Command: [a03b98242d74a61c8be515288c82ab78, findElement {using=id, value=CloseAdvisor}]
-Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 101.0.4951.67, chrome: {chromedriverVersion: 101.0.4951.41 (93c720db8323..., userDataDir: C:\Users\rbran\AppData\Loca...}, goog:chromeOptions: {debuggerAddress: localhost:58184}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), se:cdp: ws://localhost:58184/devtoo..., se:cdpVersion: 101.0.4951.67, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
-Session ID: a03b98242d74a61c8be515288c82ab78]]>
-            </message>
-            <full-stacktrace>
-              <![CDATA[org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"css selector","selector":"#CloseAdvisor"}
-  (Session info: chrome=101.0.4951.67)
-For documentation on this error, please visit: https://selenium.dev/exceptions/#no_such_element
-Build info: version: '4.1.4', revision: '535d840ee2'
-System info: host: 'LAPTOP-HSQD46T4', ip: '192.168.1.197', os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.2'
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Command: [a03b98242d74a61c8be515288c82ab78, findElement {using=id, value=CloseAdvisor}]
-Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 101.0.4951.67, chrome: {chromedriverVersion: 101.0.4951.41 (93c720db8323..., userDataDir: C:\Users\rbran\AppData\Loca...}, goog:chromeOptions: {debuggerAddress: localhost:58184}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), se:cdp: ws://localhost:58184/devtoo..., se:cdpVersion: 101.0.4951.67, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
-Session ID: a03b98242d74a61c8be515288c82ab78
-at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
-at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
-at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
-at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
-at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:480)
-at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:200)
-at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:133)
-at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:53)
-at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:184)
-at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:167)
-at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:142)
-at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:567)
-at org.openqa.selenium.remote.ElementLocation$ElementFinder$2.findElement(ElementLocation.java:162)
-at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:60)
-at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:385)
-at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:377)
-at resman.pageData.resmanaddUser.closeAdvisior(resmanaddUser.java:32)
-at resman.qa.TestCases.addUser.VerifyUsersPage(addUser.java:95)
-at resman.qa.TestCases.addUser.verifyAddUser(addUser.java:31)
-at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133)
-at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:598)
-at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173)
-at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
-at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:824)
-at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146)
-at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
-at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
-at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-at org.testng.TestRunner.privateRun(TestRunner.java:794)
-at org.testng.TestRunner.run(TestRunner.java:596)
-at org.testng.SuiteRunner.runTest(SuiteRunner.java:377)
-at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:371)
-at org.testng.SuiteRunner.privateRun(SuiteRunner.java:332)
-at org.testng.SuiteRunner.run(SuiteRunner.java:276)
-at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
-at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
-at org.testng.TestNG.runSuitesSequentially(TestNG.java:1212)
-at org.testng.TestNG.runSuitesLocally(TestNG.java:1134)
-at org.testng.TestNG.runSuites(TestNG.java:1063)
-at org.testng.TestNG.run(TestNG.java:1031)
-at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
-at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
-at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
-]]>
-            </full-stacktrace>
-          </exception> <!-- org.openqa.selenium.NoSuchElementException -->
+        <test-method signature="verifyAddUser()[pri:0, instance:resman.qa.TestCases.addUser@2df6226d]" started-at="2022-06-01T14:26:24 IST" name="verifyAddUser" finished-at="2022-06-01T14:27:25 IST" duration-ms="60136" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- verifyAddUser -->
-        <test-method is-config="true" signature="closeUp()[pri:0, instance:resman.qa.TestCases.addUser@6d1ef78d]" started-at="2022-05-21T19:18:59 IST" name="closeUp" finished-at="2022-05-21T19:19:05 IST" duration-ms="5438" status="PASS">
+        <test-method is-config="true" signature="closeUp()[pri:0, instance:resman.qa.TestCases.addUser@2df6226d]" started-at="2022-06-01T14:29:05 IST" name="closeUp" finished-at="2022-06-01T14:29:10 IST" duration-ms="5450" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- closeUp -->
       </class> <!-- resman.qa.TestCases.addUser -->
+      <class name="resman.qa.TestCases.removeUser">
+        <test-method is-config="true" signature="setup()[pri:0, instance:resman.qa.TestCases.removeUser@5f0e9815]" started-at="2022-06-01T14:27:25 IST" name="setup" finished-at="2022-06-01T14:27:30 IST" duration-ms="5717" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method signature="VerifyRemoveUser()[pri:0, instance:resman.qa.TestCases.removeUser@5f0e9815]" started-at="2022-06-01T14:27:30 IST" name="VerifyRemoveUser" finished-at="2022-06-01T14:29:05 IST" duration-ms="94690" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- VerifyRemoveUser -->
+        <test-method is-config="true" signature="closeUp()[pri:0, instance:resman.qa.TestCases.removeUser@5f0e9815]" started-at="2022-06-01T14:29:10 IST" name="closeUp" finished-at="2022-06-01T14:29:15 IST" duration-ms="5003" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeUp -->
+      </class> <!-- resman.qa.TestCases.removeUser -->
     </test> <!-- Test -->
   </suite> <!-- Report_Suite -->
 </testng-results>

@@ -69,7 +69,6 @@
 			<version>1.0-beta</version>
 		</dependency>
 
-
 		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
 		<dependency>
 			<groupId>commons-io</groupId>

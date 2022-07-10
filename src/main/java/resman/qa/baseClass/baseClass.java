@@ -63,7 +63,7 @@ public class baseClass extends report {
 	}
 
 	@BeforeMethod
-	public void setup() throws Exception {
+	public static void setup() throws Exception {
 		System.out.println("Browser Opening...");
 		openBrowser();
 		openApplication();

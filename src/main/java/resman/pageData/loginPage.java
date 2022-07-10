@@ -8,7 +8,7 @@ import resman.qa.baseClass.baseClass;
 
 public class loginPage extends baseClass {
 
-	//WebElements 
+	// WebElements
 	public static By userName = By.id("Username");
 	public static By passWord = By.id("Password");
 	public static By loginBtn = By.xpath("//button[contains(text(),'Sign in')]");

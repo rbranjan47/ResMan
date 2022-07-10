@@ -65,8 +65,8 @@ public class resmanaddUser extends baseClass {
 		return driver.findElement(okbtn);
 	}
 
-	public static List<WebElement> unSeletectedUsers(){
-		List<WebElement> unselectedusers =  driver.findElements(unSelected);
+	public static List<WebElement> unSeletectedUsers() {
+		List<WebElement> unselectedusers = driver.findElements(unSelected);
 		return unselectedusers;
 	}
 }
